@@ -1,0 +1,1359 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AeroVision | O Mundo da Aviação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* ========================= */
+        /* RESET */
+        /* ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+
+        :root {
+            --bg: #080d14;
+            --bg2: #101a26;
+            --orange: #ea580c;
+            --gold: #f59e0b;
+            --white: #f5f7fa;
+            --muted: #aab4c0;
+            --border: rgba(255,255,255,0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        button, a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        /* ========================= */
+        /* HEADER */
+        /* ========================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8,13,20,0.82);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--white);
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .navbar {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .navbar a {
+            color: var(--muted);
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        .navbar a:hover {
+            color: var(--orange);
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--white);
+            background: transparent;
+            border: 0;
+            font-size: 2.8rem;
+            cursor: pointer;
+        }
+
+
+        /* ========================= */
+        /* HERO PARALLAX */
+        /* ========================= */
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: -15% 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(8,13,20,.95) 0%,
+                    rgba(8,13,20,.65) 45%,
+                    rgba(8,13,20,.12) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    var(--bg) 0%,
+                    transparent 30%
+                ),
+                url("https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg/1280px-F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg");
+
+            background-size: cover;
+            background-position: center;
+            transform: translate3d(0, var(--hero-shift, 0px), 0) scale(1.12);
+            will-change: transform;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+            padding: 0 8%;
+            animation: heroEnter 1.2s ease both;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--gold);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 35px;
+            height: 2px;
+            background: var(--orange);
+        }
+
+        .hero h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(5rem, 9vw, 11rem);
+            font-weight: 800;
+            line-height: .9;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+            max-width: 850px;
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+            display: block;
+        }
+
+        .hero p {
+            color: #c7d0dc;
+            max-width: 550px;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem 2.5rem;
+            background: var(--orange);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: .3s;
+            clip-path: polygon(0 0, 100% 0, 100% 75%, 90% 100%, 0 100%);
+        }
+
+        .hero-btn:hover {
+            background: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .hero-btn span {
+            font-size: 2rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 4rem;
+            right: 8%;
+            color: var(--muted);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            writing-mode: vertical-rl;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .scroll-indicator::after {
+            content: "";
+            display: block;
+            width: 1px;
+            height: 70px;
+            background: var(--orange);
+        }
+
+
+        /* ========================= */
+        /* INTRODUÇÃO */
+        /* ========================= */
+
+        .intro {
+            padding: 12rem 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            align-items: center;
+            background: var(--bg);
+        }
+
+        .section-label {
+            color: var(--orange);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .intro h2,
+        .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(4rem, 6vw, 7rem);
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+        }
+
+        .intro h2 span,
+        .section-title span {
+            color: var(--orange);
+        }
+
+        .intro p {
+            color: var(--muted);
+            font-size: 1.4rem;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .intro-image {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        .intro-image img {
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+            transform: translateY(var(--image-shift, 0px));
+            will-change: transform;
+        }
+
+        .image-tag {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--orange);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+
+        /* ========================= */
+        /* FAIXA PARALLAX */
+        /* ========================= */
+
+        .parallax-banner {
+            height: 430px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-banner img {
+            position: absolute;
+            inset: -15% 0;
+            width: 100%;
+            height: 130%;
+            object-fit: cover;
+            object-position: center 45%;
+            filter: brightness(.48);
+            transform: translate3d(0, var(--banner-shift, 0px), 0);
+            will-change: transform;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .banner-content h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(4rem, 7vw, 8rem);
+            text-transform: uppercase;
+        }
+
+        .banner-content p {
+            color: #e0e5eb;
+            font-size: 1.4rem;
+            margin-top: 1rem;
+        }
+
+
+        /* ========================= */
+        /* AERONAVES */
+        /* ========================= */
+
+        .aircraft {
+            padding: 12rem 8%;
+            background: var(--bg2);
+        }
+
+        .section-header {
+            max-width: 750px;
+            margin: 0 auto 6rem;
+            text-align: center;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: 1.4rem;
+            line-height: 1.8;
+        }
+
+        .aircraft-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .aircraft-card {
+            background: #0a111b;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: .4s ease;
+        }
+
+        .aircraft-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--orange);
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .aircraft-card .photo {
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .aircraft-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s;
+        }
+
+        .aircraft-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .aircraft-info {
+            padding: 2.5rem;
+        }
+
+        .aircraft-info small {
+            color: var(--orange);
+            letter-spacing: 2px;
+            font-size: .9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .aircraft-info h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 3rem;
+            margin: 1rem 0;
+            text-transform: uppercase;
+        }
+
+        .aircraft-info p {
+            color: var(--muted);
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+
+
+        /* ========================= */
+        /* TECNOLOGIA */
+        /* ========================= */
+
+        .technology {
+            padding: 12rem 10%;
+            background: var(--bg);
+        }
+
+        .technology-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+
+        .tech-card {
+            padding: 3.5rem 2.5rem;
+            background: var(--bg2);
+            border-top: 3px solid var(--orange);
+            transition: .3s;
+        }
+
+        .tech-card:hover {
+            background: #172536;
+            transform: translateY(-7px);
+        }
+
+        .tech-number {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 4rem;
+            color: var(--orange);
+        }
+
+        .tech-card h3 {
+            font-size: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-card p {
+            color: var(--muted);
+            font-size: 1.25rem;
+            line-height: 1.9;
+        }
+
+
+        /* ========================= */
+        /* ENCERRAMENTO */
+        /* ========================= */
+
+        .closing {
+            min-height: 430px;
+            padding: 8rem 10%;
+            background:
+                linear-gradient(rgba(8,13,20,.88), rgba(8,13,20,.95)),
+                url("https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg/1280px-F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg")
+                center/cover fixed;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .closing h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(4rem, 7vw, 7.5rem);
+            text-transform: uppercase;
+        }
+
+        .closing h2 span {
+            color: var(--orange);
+        }
+
+        .closing p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-top: 2rem;
+        }
+
+
+        /* ========================= */
+        /* FOOTER */
+        /* ========================= */
+
+        footer {
+            padding: 3rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #05090e;
+            border-top: 1px solid var(--border);
+            gap: 2rem;
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--orange);
+        }
+
+        .footer-logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: 800;
+        }
+
+        .footer-logo span {
+            color: var(--orange);
+        }
+
+
+        /* ========================= */
+        /* ANIMAÇÕES DE ENTRADA */
+        /* ========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(45px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes heroEnter {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* ========================= */
+        /* RESPONSIVIDADE */
+        /* ========================= */
+
+        @media (max-width: 1000px) {
+
+            header {
+                padding: 2rem 5%;
+            }
+
+            .intro {
+                padding: 9rem 6%;
+                gap: 4rem;
+            }
+
+            .aircraft-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .technology-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+
+            header {
+                padding: 1.8rem 5%;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 2rem;
+                background: var(--bg2);
+                border-bottom: 1px solid var(--border);
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                gap: 2.5rem;
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar a {
+                font-size: 1.4rem;
+            }
+
+            .hero {
+                min-height: 720px;
+            }
+
+            .hero-bg {
+                background-position: 58% center;
+
+                background-image:
+                    linear-gradient(
+                        90deg,
+                        rgba(8,13,20,.9),
+                        rgba(8,13,20,.4)
+                    ),
+                    linear-gradient(
+                        0deg,
+                        var(--bg),
+                        transparent 40%
+                    ),
+                    url("https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg/1280px-F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg");
+            }
+
+            .hero-content {
+                padding: 0 6%;
+            }
+
+            .hero h1 {
+                font-size: clamp(5rem, 14vw, 8rem);
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            .intro {
+                grid-template-columns: 1fr;
+                padding: 8rem 6%;
+                gap: 4rem;
+            }
+
+            .intro-image {
+                height: 320px;
+            }
+
+            .parallax-banner {
+                height: 350px;
+            }
+
+            .aircraft {
+                padding: 8rem 6%;
+            }
+
+            .aircraft-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aircraft-card .photo {
+                height: 260px;
+            }
+
+            .technology {
+                padding: 8rem 6%;
+            }
+
+            .technology-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .closing {
+                background-attachment: scroll;
+                min-height: 350px;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+        }
+
+
+        /* ACESSIBILIDADE */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+
+            .hero-bg,
+            .intro-image img,
+            .parallax-banner img {
+                transform: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <a href="#inicio" class="logo">
+            AERO<span>VISION</span>
+        </a>
+
+        <button class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Abrir menu"
+                aria-expanded="false">
+            ☰
+        </button>
+
+        <nav class="navbar" id="navbar">
+
+            <a href="#inicio">Início</a>
+            <a href="#aviacao">A Aviação</a>
+            <a href="#aeronaves">Aeronaves</a>
+            <a href="#tecnologia">Tecnologia</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- HERO PARALLAX -->
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-bg" id="hero-bg"></div>
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                UM UNIVERSO ALÉM DOS LIMITES
+            </div>
+
+            <h1>
+                Dominando
+                <span>os céus.</span>
+            </h1>
+
+            <p>
+                Velocidade, engenharia e tecnologia.
+                Conheça o fascinante universo da aviação militar
+                e as aeronaves que representam algumas das maiores
+                conquistas da engenharia aeronáutica.
+            </p>
+
+            <a href="https://pt.wikipedia.org/wiki/Avia%C3%A7%C3%A3o_militar" class="hero-btn">
+                Explorar o universo da aviação
+                <span>↘</span>
+            </a>
+
+        </div>
+
+        <div class="scroll-indicator">
+            ROLE PARA DESCOBRIR
+        </div>
+
+    </section>
+
+
+
+    <!-- INTRODUÇÃO -->
+
+    <section class="intro" id="aviacao">
+
+        <div class="intro-content reveal">
+
+            <div class="section-label">
+                01 / O UNIVERSO AERONÁUTICO
+            </div>
+
+            <h2>
+                A arte de
+                <span>voar.</span>
+            </h2>
+
+            <p>
+                A aviação representa uma das maiores conquistas
+                da humanidade. Desde os primeiros experimentos
+                com máquinas voadoras até os modernos aviões
+                a jato, a capacidade de conquistar os céus
+                transformou a maneira como o mundo se conecta.
+
+                <br><br>
+
+                Na aviação militar, essa evolução também deu
+                origem a aeronaves extraordinárias, projetadas
+                para combinar desempenho, resistência,
+                precisão e tecnologia.
+
+                <br><br>
+
+                Os caças modernos são verdadeiras obras de
+                engenharia. Cada detalhe de sua estrutura
+                envolve estudos de aerodinâmica, propulsão,
+                materiais e sistemas eletrônicos.
+            </p>
+
+        </div>
+
+
+        <div class="intro-image reveal">
+
+            <img
+                src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/RDAF_General_Dynamics_F-16AM_Fighting_Falcon_E-006_Royal_International_Air_Tattoo_2025_01.jpg/1280px-RDAF_General_Dynamics_F-16AM_Fighting_Falcon_E-006_Royal_International_Air_Tattoo_2025_01.jpg"
+                alt="Caça F-16AM em demonstração aérea"
+                loading="lazy"
+            >
+
+            <div class="image-tag">
+                F-16 FIGHTING FALCON
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FAIXA PARALLAX -->
+
+    <section class="parallax-banner">
+
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/9/99/F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg"
+            alt="Caças militares voando em formação"
+            id="banner-image"
+            loading="lazy"
+        >
+
+        <div class="banner-content reveal">
+
+            <div class="section-label">
+                ENGENHARIA • DESEMPENHO • INOVAÇÃO
+            </div>
+
+            <h2>
+                A tecnologia
+                <br>
+                <span>não tem limites.</span>
+            </h2>
+
+            <p>
+                Cada geração transforma a maneira de compreender o voo.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- AERONAVES -->
+
+    <section class="aircraft" id="aeronaves">
+
+        <div class="section-header reveal">
+
+            <div class="section-label">
+                02 / AERONAVES
+            </div>
+
+            <h2 class="section-title">
+                Ícones da
+                <span>aviação.</span>
+            </h2>
+
+            <p>
+                Conheça algumas aeronaves que marcaram
+                a história da aviação militar e representam
+                diferentes abordagens de projeto e engenharia.
+            </p>
+
+        </div>
+
+
+        <div class="aircraft-grid">
+
+
+            <!-- F-16 -->
+
+            <article class="aircraft-card reveal">
+
+                <div class="photo">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/RDAF_General_Dynamics_F-16AM_Fighting_Falcon_E-006_Royal_International_Air_Tattoo_2025_01.jpg/1280px-RDAF_General_Dynamics_F-16AM_Fighting_Falcon_E-006_Royal_International_Air_Tattoo_2025_01.jpg"
+                        alt="F-16 Fighting Falcon"
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="aircraft-info">
+
+                    <small>ESTADOS UNIDOS</small>
+
+                    <h3>F-16 Fighting Falcon</h3>
+
+                    <p>
+                        Conhecido por sua versatilidade, o F-16
+                        é um caça multifunção que se destaca
+                        por seu projeto aerodinâmico e pela
+                        combinação de desempenho e manobrabilidade.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- FORMAÇÃO -->
+
+            <article class="aircraft-card reveal">
+
+                <div class="photo">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg/1280px-F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg"
+                        alt="Formação de caças F-16 e Eurofighter Typhoon"
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="aircraft-info">
+
+                    <small>AVIAÇÃO INTERNACIONAL</small>
+
+                    <h3>Eurofighter e F-16</h3>
+
+                    <p>
+                        A formação reúne diferentes projetos
+                        aeronáuticos e demonstra a diversidade
+                        tecnológica presente na aviação militar
+                        contemporânea.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- RAFALE E F/A-18 -->
+
+            <article class="aircraft-card reveal">
+
+                <div class="photo">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Rafale_F-18.jpg/1280px-Rafale_F-18.jpg"
+                        alt="Aeronaves Rafale e F/A-18 em formação"
+                        loading="lazy"
+                    >
+
+                </div>
+
+                <div class="aircraft-info">
+
+                    <small>AVIAÇÃO NAVAL</small>
+
+                    <h3>Rafale e F/A-18</h3>
+
+                    <p>
+                        Aeronaves associadas às operações
+                        embarcadas, representam a engenharia
+                        necessária para operar caças a partir
+                        de navios-aeródromos.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TECNOLOGIA -->
+
+    <section class="technology" id="tecnologia">
+
+        <div class="section-header reveal">
+
+            <div class="section-label">
+                03 / ENGENHARIA AERONÁUTICA
+            </div>
+
+            <h2 class="section-title">
+                Por trás da
+                <span>máquina.</span>
+            </h2>
+
+            <p>
+                Um caça moderno é resultado da integração
+                de diferentes áreas da engenharia.
+                Conheça alguns dos principais elementos
+                responsáveis pelo seu funcionamento.
+            </p>
+
+        </div>
+
+
+        <div class="technology-grid">
+
+
+            <div class="tech-card reveal">
+
+                <div class="tech-number">01</div>
+
+                <h3>Propulsão</h3>
+
+                <p>
+                    Os motores a reação transformam energia
+                    em empuxo, permitindo que as aeronaves
+                    alcancem velocidades elevadas e mantenham
+                    seu deslocamento no ar.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card reveal">
+
+                <div class="tech-number">02</div>
+
+                <h3>Aerodinâmica</h3>
+
+                <p>
+                    O formato das asas e da fuselagem influencia
+                    a sustentação, o arrasto e a estabilidade.
+                    Cada superfície é projetada considerando
+                    as condições de voo.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card reveal">
+
+                <div class="tech-number">03</div>
+
+                <h3>Aviónica</h3>
+
+                <p>
+                    Sistemas eletrônicos, instrumentos,
+                    sensores e computadores ajudam a
+                    fornecer informações importantes
+                    para o piloto e para a operação da aeronave.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ENCERRAMENTO -->
+
+    <section class="closing">
+
+        <div class="section-label">
+            O FUTURO DA AVIAÇÃO
+        </div>
+
+        <h2 class="reveal">
+            O céu não é
+            <span>o limite.</span>
+        </h2>
+
+        <p class="reveal">
+            A aviação continua evoluindo por meio da ciência,
+            da engenharia e da inovação. O desenvolvimento
+            tecnológico transforma constantemente a maneira
+            como exploramos e compreendemos o espaço aéreo.
+        </p>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-logo">
+            AERO<span>VISION</span>
+        </div>
+
+        <p>
+            Um projeto demonstrativo sobre aviação e engenharia aeronáutica.
+            <br>
+            © 2026 AeroVision.
+        </p>
+
+        <p>
+            Fotografias:
+            <a href="https://commons.wikimedia.org/wiki/File:F-16_and_Eurofighter_Typhoon_flying_in_Formation.jpg" target="_blank" rel="noopener">USAF</a> ·
+            <a href="https://commons.wikimedia.org/wiki/File:RDAF_General_Dynamics_F-16AM_Fighting_Falcon_E-006_Royal_International_Air_Tattoo_2025_01.jpg" target="_blank" rel="noopener">Julian Herzog (CC BY 4.0)</a> ·
+            <a href="https://commons.wikimedia.org/wiki/File:Rafale_F-18.jpg" target="_blank" rel="noopener">U.S. Navy</a>
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* ========================= */
+        /* MENU MOBILE */
+        /* ========================= */
+
+        const menuToggle = document.querySelector('#menu-toggle');
+
+        const navbar = document.querySelector('#navbar');
+
+        menuToggle.addEventListener('click', () => {
+
+            const open = navbar.classList.toggle('active');
+
+            menuToggle.textContent = open ? '✕' : '☰';
+
+            menuToggle.setAttribute('aria-expanded', open);
+
+            menuToggle.setAttribute(
+                'aria-label',
+                open ? 'Fechar menu' : 'Abrir menu'
+            );
+
+        });
+
+
+        navbar.querySelectorAll('a').forEach(link => {
+
+            link.addEventListener('click', () => {
+
+                navbar.classList.remove('active');
+
+                menuToggle.textContent = '☰';
+
+                menuToggle.setAttribute('aria-expanded', 'false');
+
+            });
+
+        });
+
+
+        /* ========================= */
+        /* PARALLAX */
+        /* ========================= */
+
+        const reduceMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+        const heroBg = document.querySelector('#hero-bg');
+
+        const bannerImage = document.querySelector('#banner-image');
+
+        const introImage = document.querySelector('.intro-image img');
+
+        let ticking = false;
+
+
+        function updateParallax() {
+
+            if (reduceMotion) return;
+
+            const scrollY = window.scrollY;
+
+            // Movimento do fundo principal
+
+            heroBg.style.setProperty(
+                '--hero-shift',
+                `${scrollY * 0.24}px`
+            );
+
+
+            // Movimento da imagem da introdução
+
+            const introRect = introImage.getBoundingClientRect();
+
+            const introOffset =
+                (introRect.top - window.innerHeight / 2) * -0.10;
+
+            introImage.style.setProperty(
+                '--image-shift',
+                `${introOffset}px`
+            );
+
+
+            // Movimento da faixa de imagem
+
+            const bannerRect = bannerImage.parentElement.getBoundingClientRect();
+
+            const bannerOffset =
+                (bannerRect.top - window.innerHeight / 2) * -0.14;
+
+            bannerImage.style.setProperty(
+                '--banner-shift',
+                `${bannerOffset}px`
+            );
+
+
+            ticking = false;
+
+        }
+
+
+        window.addEventListener('scroll', () => {
+
+            if (!ticking) {
+
+                window.requestAnimationFrame(updateParallax);
+
+                ticking = true;
+
+            }
+
+        }, { passive: true });
+
+
+        window.addEventListener('resize', updateParallax);
+
+        updateParallax();
+
+
+        /* ========================= */
+        /* ANIMAÇÕES DE ENTRADA */
+        /* ========================= */
+
+        const revealElements = document.querySelectorAll('.reveal');
+
+
+        if ('IntersectionObserver' in window && !reduceMotion) {
+
+            const observer = new IntersectionObserver((entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add('visible');
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            }, {
+                threshold: 0.12
+            });
+
+
+            revealElements.forEach(element => {
+
+                observer.observe(element);
+
+            });
+
+        } else {
+
+            revealElements.forEach(element => {
+
+                element.classList.add('visible');
+
+            });
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
